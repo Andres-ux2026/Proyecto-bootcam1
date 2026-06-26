@@ -12,17 +12,17 @@ def es_admin(user):
 def home(request):
     slides = [
         {
-            'image': static('images/slide1.png'),
+            'image': static('images/slide1.jpg'),
             'title': 'Transforma tu Cuerpo',
             'description': 'Entrenamientos diseñados para todos los niveles con instructores certificados.',
         },
         {
-            'image': static('images/slide2.png'),
+            'image': static('images/slide2.jpg'),
             'title': 'Supera tus Límites',
             'description': 'HIIT, fuerza, funcional y más. Encuentra la disciplina que te apasiona.',
         },
         {
-            'image': static('images/slide3.png'),
+            'image': static('images/slide3.jpg'),
             'title': 'Resultados Reales',
             'description': 'Seguimiento personalizado de tu avance físico con métricas detalladas.',
         },

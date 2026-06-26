@@ -5,7 +5,7 @@
 <!-- Hero / Carrusel -->
 <section class="relative bg-gray-900 text-white overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-r from-akela-900/80 to-black/60 z-10"></div>
-    <div id="carousel" class="relative h-[500px] md:h-[600px]">
+    <div id="carousel" class="relative w-full aspect-[16/9] md:aspect-[21/9] max-h-[80vh]">
         {% for slide in slides %}
         <div class="carousel-slide absolute inset-0 transition-opacity duration-700 {% if forloop.first %}opacity-100{% else %}opacity-0{% endif %}">
             <img src="{{ slide.image }}" alt="{{ slide.title }}" class="w-full h-full object-cover">
