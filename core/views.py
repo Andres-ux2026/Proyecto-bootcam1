@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
+from django.templatetags.static import static
 from .forms import RegistroForm, AvanceFisicoForm, RutinaForm
 from .models import AvanceFisico, Rutina, PerfilUsuario
 
@@ -11,17 +12,17 @@ def es_admin(user):
 def home(request):
     slides = [
         {
-            'image': 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg',
+            'image': static('images/slide1.png'),
             'title': 'Transforma tu Cuerpo',
             'description': 'Entrenamientos diseñados para todos los niveles con instructores certificados.',
         },
         {
-            'image': 'https://images.pexels.com/photos/6550839/pexels-photo-6550839.jpeg',
+            'image': static('images/slide2.png'),
             'title': 'Supera tus Límites',
             'description': 'HIIT, fuerza, funcional y más. Encuentra la disciplina que te apasiona.',
         },
         {
-            'image': 'https://images.pexels.com/photos/6455874/pexels-photo-6455874.jpeg',
+            'image': static('images/slide3.png'),
             'title': 'Resultados Reales',
             'description': 'Seguimiento personalizado de tu avance físico con métricas detalladas.',
         },
