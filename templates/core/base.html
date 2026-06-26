@@ -31,25 +31,30 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>">
 </head>
 <body class="bg-[#0f172a] text-gray-100 font-sans antialiased">
-    <nav class="bg-akela-700 shadow-lg">
+    <nav class="bg-[#0a0f1e]/90 backdrop-blur-md border-b border-akela-500/20 shadow-lg shadow-akela-500/5 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="{% url 'home' %}" class="flex items-center space-x-2">
-                        <span class="text-white text-xl font-bold tracking-tight">AkelaGym</span>
-                    </a>
-                </div>
-                <div class="flex items-center space-x-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-1 flex items-center space-x-4">
                     {% if user.is_authenticated %}
-                        <a href="{% url 'dashboard' %}" class="text-akela-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Dashboard</a>
+                        <a href="{% url 'dashboard' %}" class="text-gray-300 hover:text-akela-400 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(54,169,245,0.5)]">Dashboard</a>
                         {% if user.is_staff %}
-                            <a href="{% url 'lista_rutinas' %}" class="text-akela-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Admin Gym</a>
+                            <a href="{% url 'lista_rutinas' %}" class="text-gray-300 hover:text-akela-400 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(54,169,245,0.5)]">Admin Gym</a>
                         {% endif %}
-                        <span class="text-akela-200 text-sm">Hola, {{ user.username }}</span>
-                        <a href="{% url 'logout' %}" class="bg-akela-500 hover:bg-akela-600 text-white px-4 py-2 rounded-md text-sm font-medium transition">Cerrar Sesión</a>
                     {% else %}
-                        <a href="{% url 'login' %}" class="text-akela-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Iniciar Sesión</a>
-                        <a href="{% url 'register' %}" class="bg-akela-500 hover:bg-akela-600 text-white px-4 py-2 rounded-md text-sm font-medium transition">Registrarse</a>
+                        <a href="{% url 'login' %}" class="text-gray-300 hover:text-akela-400 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(54,169,245,0.5)]">Iniciar Sesión</a>
+                    {% endif %}
+                </div>
+
+                <a href="{% url 'home' %}" class="flex-shrink-0">
+                    <span class="text-2xl md:text-3xl font-black tracking-widest bg-gradient-to-r from-akela-400 via-purple-400 to-akela-300 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(54,169,245,0.6)] hover:drop-shadow-[0_0_20px_rgba(54,169,245,0.9)] transition-all duration-500 uppercase" style="font-family: 'Arial Black', 'Impact', sans-serif; letter-spacing: 0.15em;">AkelaGym</span>
+                </a>
+
+                <div class="flex-1 flex items-center justify-end space-x-4">
+                    {% if user.is_authenticated %}
+                        <span class="text-gray-400 text-sm hidden sm:block">{{ user.username }}</span>
+                        <a href="{% url 'logout' %}" class="bg-akela-500/10 hover:bg-akela-500/20 text-akela-300 border border-akela-500/30 hover:border-akela-500/60 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:shadow-[0_0_12px_rgba(54,169,245,0.3)]">Cerrar Sesión</a>
+                    {% else %}
+                        <a href="{% url 'register' %}" class="bg-gradient-to-r from-akela-600 to-purple-600 hover:from-akela-500 hover:to-purple-500 text-white px-5 py-2 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(54,169,245,0.4)]">Registrarse</a>
                     {% endif %}
                 </div>
             </div>
