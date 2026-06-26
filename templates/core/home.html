@@ -4,10 +4,10 @@
 {% block content %}
 <!-- Hero / Carrusel (solo imágenes) -->
 <section class="bg-gradient-to-br from-[#0f172a] via-[#1a1a3e] to-[#0d1b2a] py-4 md:py-6 px-4 md:px-8">
-    <div id="carousel" class="relative w-full max-w-5xl mx-auto aspect-[21/9] max-h-[50vh]">
+    <div id="carousel" class="relative w-full max-w-5xl mx-auto aspect-[16/9] max-h-[60vh]">
         {% for slide in slides %}
         <div class="carousel-slide absolute inset-0 transition-opacity duration-700 {% if forloop.first %}opacity-100{% else %}opacity-0{% endif %}">
-            <img src="{{ slide.image }}" alt="{{ slide.title }}" class="w-full h-full object-cover object-top rounded-2xl border border-white/10 shadow-2xl">
+            <img src="{{ slide.image }}" alt="{{ slide.title }}" class="w-full h-full object-contain rounded-2xl border border-white/10 shadow-2xl">
         </div>
         {% endfor %}
         <div class="absolute bottom-3 left-0 right-0 z-30 flex justify-center space-x-2">
