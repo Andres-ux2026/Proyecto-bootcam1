@@ -40,8 +40,6 @@
                         {% if user.is_staff %}
                             <a href="{% url 'lista_rutinas' %}" class="text-gray-300 hover:text-akela-400 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(54,169,245,0.5)]">Admin Gym</a>
                         {% endif %}
-                    {% else %}
-                        <a href="{% url 'login' %}" class="text-gray-300 hover:text-akela-400 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(54,169,245,0.5)]">Iniciar Sesión</a>
                     {% endif %}
                 </div>
 
@@ -54,7 +52,7 @@
                         <span class="text-gray-400 text-sm hidden sm:block">{{ user.username }}</span>
                         <a href="{% url 'logout' %}" class="bg-akela-500/10 hover:bg-akela-500/20 text-akela-300 border border-akela-500/30 hover:border-akela-500/60 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:shadow-[0_0_12px_rgba(54,169,245,0.3)]">Cerrar Sesión</a>
                     {% else %}
-                        <a href="{% url 'register' %}" class="bg-gradient-to-r from-akela-600 to-purple-600 hover:from-akela-500 hover:to-purple-500 text-white px-5 py-2 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(54,169,245,0.4)]">Registrarse</a>
+                        <a href="{% url 'login' %}" class="bg-gradient-to-r from-akela-600 to-purple-600 hover:from-akela-500 hover:to-purple-500 text-white px-5 py-2 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(54,169,245,0.4)]">Iniciar Sesión</a>
                     {% endif %}
                 </div>
             </div>
