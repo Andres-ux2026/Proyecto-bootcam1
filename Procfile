@@ -1,1 +1,1 @@
-web: gunicorn akelagym.wsgi
+web: ./start.sh
