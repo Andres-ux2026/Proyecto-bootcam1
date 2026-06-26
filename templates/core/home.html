@@ -2,18 +2,12 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-<!-- Hero / Carrusel -->
-<section class="bg-gradient-to-br from-[#0f172a] via-[#1a1a3e] to-[#0d1b2a] text-white py-6 md:py-8 px-4 md:px-8">
-    <div id="carousel" class="relative w-full max-w-6xl mx-auto aspect-[16/9] max-h-[60vh]">
+<!-- Hero / Carrusel (solo imágenes) -->
+<section class="bg-gradient-to-br from-[#0f172a] via-[#1a1a3e] to-[#0d1b2a] py-4 md:py-6 px-4 md:px-8">
+    <div id="carousel" class="relative w-full max-w-5xl mx-auto aspect-[21/9] max-h-[50vh]">
         {% for slide in slides %}
         <div class="carousel-slide absolute inset-0 transition-opacity duration-700 {% if forloop.first %}opacity-100{% else %}opacity-0{% endif %}">
             <img src="{{ slide.image }}" alt="{{ slide.title }}" class="w-full h-full object-cover object-top rounded-2xl border border-white/10 shadow-2xl">
-            <div class="absolute inset-0 flex items-end md:items-center z-20 p-6 md:p-10 bg-gradient-to-t from-black/70 via-transparent to-transparent rounded-2xl">
-                <div class="max-w-3xl">
-                    <h1 class="text-3xl md:text-5xl font-bold mb-2 drop-shadow-lg">{{ slide.title }}</h1>
-                    <p class="text-lg md:text-xl text-gray-300 max-w-2xl drop-shadow-lg">{{ slide.description }}</p>
-                </div>
-            </div>
         </div>
         {% endfor %}
         <div class="absolute bottom-3 left-0 right-0 z-30 flex justify-center space-x-2">
@@ -21,6 +15,27 @@
             <button onclick="goToSlide({{ forloop.counter0 }})" class="carousel-dot w-2.5 h-2.5 rounded-full {% if forloop.first %}bg-white{% else %}bg-white/30{% endif %} hover:bg-white transition-all duration-300"></button>
             {% endfor %}
         </div>
+    </div>
+</section>
+
+<!-- Frases destacadas -->
+<section class="max-w-6xl mx-auto px-4 -mt-10 relative z-40">
+    <div class="grid md:grid-cols-3 gap-6">
+        {% for slide in slides %}
+        <div class="bg-[#1e293b]/90 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 shadow-xl hover:shadow-akela-500/10 hover:-translate-y-1 transition-all duration-300">
+            <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-akela-500/20 to-purple-500/20 flex items-center justify-center flex-shrink-0 border border-akela-500/20">
+                    <span class="text-2xl">
+                        {% if forloop.first %}🔥{% elif forloop.counter == 2 %}⚡{% else %}🎯{% endif %}
+                    </span>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">{{ slide.title }}</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">{{ slide.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </section>
 
