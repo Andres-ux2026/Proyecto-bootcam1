@@ -3,8 +3,8 @@
 
 {% block content %}
 <div class="max-w-2xl mx-auto px-4 py-8">
-    <div class="bg-[#1e293b] border border-gray-700/50 rounded-2xl shadow-lg p-8">
-        <h1 class="text-2xl font-bold mb-2 text-white">Registrar Avance Físico</h1>
+    <div class="bg-[#1e293b] border border-gray-700/50 rounded-2xl shadow-lg p-4 sm:p-8">
+        <h1 class="text-xl sm:text-2xl font-bold mb-2 text-white">Registrar Avance Físico</h1>
         <p class="text-gray-400 mb-6">Ingresa tus medidas para dar seguimiento a tu progreso.</p>
         <form method="POST" class="space-y-5">
             {% csrf_token %}
@@ -17,9 +17,9 @@
                 {% endif %}
             </div>
             {% endfor %}
-            <div class="flex space-x-4">
+            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
                 <button type="submit" class="bg-akela-600 hover:bg-akela-700 text-white font-medium py-3 px-6 rounded-xl transition">Guardar</button>
-                <a href="{% url 'dashboard' %}" class="bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-xl transition">Cancelar</a>
+                <a href="{% url 'dashboard' %}" class="bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-xl transition text-center">Cancelar</a>
             </div>
         </form>
     </div>

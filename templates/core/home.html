@@ -4,7 +4,7 @@
 {% block content %}
 <!-- Hero / Carrusel (solo imágenes) -->
 <section class="bg-gradient-to-br from-[#0f172a] via-[#1a1a3e] to-[#0d1b2a] py-4 md:py-6 px-4 md:px-8">
-    <div id="carousel" class="relative w-full max-w-5xl mx-auto aspect-[16/9] max-h-[60vh]">
+    <div id="carousel" class="relative w-full max-w-5xl mx-auto aspect-[16/9] max-h-[40vh] sm:max-h-[60vh]">
         {% for slide in slides %}
         <div class="carousel-slide absolute inset-0 transition-opacity duration-700 {% if forloop.first %}opacity-100{% else %}opacity-0{% endif %}">
             <img src="{{ slide.image }}" alt="{{ slide.title }}" class="w-full h-full object-contain rounded-2xl border border-white/10 shadow-2xl">
@@ -51,7 +51,7 @@
     <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto text-lg">Selecciona el plan ideal para ti y empieza a verte y sentirte mejor que nunca.</p>
     <div class="grid md:grid-cols-3 gap-8">
         {% for plan in planes %}
-        <div class="bg-[#1e293b] rounded-2xl shadow-lg hover:shadow-akela-500/10 hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2 border border-gray-700/50 {% if plan.destacado %}ring-2 ring-akela-500 scale-105 hover:scale-110{% endif %}">
+        <div class="bg-[#1e293b] rounded-2xl shadow-lg hover:shadow-akela-500/10 hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2 border border-gray-700/50 {% if plan.destacado %}ring-2 ring-akela-500 md:scale-105 md:hover:scale-110{% endif %}">
             {% if plan.destacado %}
             <div class="bg-gradient-to-r from-akela-500 to-akela-700 text-white text-center py-2 text-sm font-medium tracking-wider">MÁS POPULAR</div>
             {% endif %}

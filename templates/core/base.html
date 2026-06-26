@@ -32,27 +32,27 @@
 </head>
 <body class="bg-[#0f172a] text-gray-100 font-sans antialiased">
     <nav class="bg-[#0a0f1e]/90 backdrop-blur-md border-b border-akela-500/20 shadow-lg shadow-akela-500/5 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-1 flex items-center space-x-4">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14 sm:h-16 gap-1 sm:gap-4">
+                <div class="flex items-center space-x-1 sm:space-x-4 min-w-0">
                     {% if user.is_authenticated %}
-                        <a href="{% url 'dashboard' %}" class="text-gray-300 hover:text-akela-400 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(54,169,245,0.5)]">Dashboard</a>
+                        <a href="{% url 'dashboard' %}" class="text-gray-300 hover:text-akela-400 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(54,169,245,0.5)]">Dashboard</a>
                         {% if user.is_staff %}
-                            <a href="{% url 'lista_rutinas' %}" class="text-gray-300 hover:text-akela-400 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(54,169,245,0.5)]">Admin Gym</a>
+                            <a href="{% url 'lista_rutinas' %}" class="text-gray-300 hover:text-akela-400 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(54,169,245,0.5)]">Admin Gym</a>
                         {% endif %}
                     {% endif %}
                 </div>
 
                 <a href="{% url 'home' %}" class="flex-shrink-0">
-                    <span class="text-2xl md:text-3xl font-black tracking-widest bg-gradient-to-r from-akela-400 via-purple-400 to-akela-300 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(54,169,245,0.6)] hover:drop-shadow-[0_0_20px_rgba(54,169,245,0.9)] transition-all duration-500 uppercase" style="font-family: 'Arial Black', 'Impact', sans-serif; letter-spacing: 0.15em;">Akela Gym</span>
+                    <span class="text-lg sm:text-2xl md:text-3xl font-black tracking-widest bg-gradient-to-r from-akela-400 via-purple-400 to-akela-300 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(54,169,245,0.6)] hover:drop-shadow-[0_0_20px_rgba(54,169,245,0.9)] transition-all duration-500 uppercase" style="font-family: 'Arial Black', 'Impact', sans-serif; letter-spacing: 0.15em;">Akela Gym</span>
                 </a>
 
-                <div class="flex-1 flex items-center justify-end space-x-4">
+                <div class="flex items-center justify-end space-x-1 sm:space-x-4 min-w-0">
                     {% if user.is_authenticated %}
-                        <span class="text-gray-400 text-sm hidden sm:block">{{ user.username }}</span>
-                        <a href="{% url 'logout' %}" class="bg-akela-500/10 hover:bg-akela-500/20 text-akela-300 border border-akela-500/30 hover:border-akela-500/60 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:shadow-[0_0_12px_rgba(54,169,245,0.3)]">Cerrar Sesión</a>
+                        <span class="text-gray-400 text-xs sm:text-sm hidden sm:block truncate">{{ user.username }}</span>
+                        <a href="{% url 'logout' %}" class="bg-akela-500/10 hover:bg-akela-500/20 text-akela-300 border border-akela-500/30 hover:border-akela-500/60 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 hover:shadow-[0_0_12px_rgba(54,169,245,0.3)]">Cerrar Sesión</a>
                     {% else %}
-                        <a href="{% url 'login' %}" class="bg-gradient-to-r from-akela-600 to-purple-600 hover:from-akela-500 hover:to-purple-500 text-white px-5 py-2 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(54,169,245,0.4)]">Iniciar Sesión</a>
+                        <a href="{% url 'login' %}" class="bg-gradient-to-r from-akela-600 to-purple-600 hover:from-akela-500 hover:to-purple-500 text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(54,169,245,0.4)]">Iniciar Sesión</a>
                     {% endif %}
                 </div>
             </div>
