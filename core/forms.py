@@ -33,10 +33,7 @@ class RegistroForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
-            if isinstance(field.widget, forms.DateInput):
-                field.widget.attrs.update({'class': 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-akela-500 focus:border-akela-500 outline-none transition'})
-            else:
-                field.widget.attrs.update({'class': 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-akela-500 focus:border-akela-500 outline-none transition'})
+            field.widget.attrs.update({'class': 'w-full px-4 py-3 bg-[#0f172a] border border-gray-700 rounded-xl focus:ring-2 focus:ring-akela-500 focus:border-akela-500 outline-none transition text-white placeholder-gray-500'})
 
     def save(self, commit=True):
         user = super().save(commit=False)

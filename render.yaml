@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: akelagym
+    env: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn akelagym.wsgi
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: akelagym.settings
+      - key: PYTHON_VERSION
+        value: 3.12.3

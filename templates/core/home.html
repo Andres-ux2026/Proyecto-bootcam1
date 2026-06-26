@@ -2,52 +2,72 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-<!-- Hero / Carrusel -->
-<section class="relative bg-gray-900 text-white overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-r from-akela-900/80 to-black/60 z-10"></div>
-    <div id="carousel" class="relative h-[500px] md:h-[600px]">
+<!-- Hero / Carrusel (solo imágenes) -->
+<section class="bg-gradient-to-br from-[#0f172a] via-[#1a1a3e] to-[#0d1b2a] py-4 md:py-6 px-4 md:px-8">
+    <div id="carousel" class="relative w-full max-w-5xl mx-auto aspect-[16/9] max-h-[40vh] sm:max-h-[60vh]">
         {% for slide in slides %}
         <div class="carousel-slide absolute inset-0 transition-opacity duration-700 {% if forloop.first %}opacity-100{% else %}opacity-0{% endif %}">
-            <img src="{{ slide.image }}" alt="{{ slide.title }}" class="w-full h-full object-cover">
-            <div class="absolute inset-0 flex items-center z-20">
-                <div class="max-w-7xl mx-auto px-4 w-full">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-4">{{ slide.title }}</h1>
-                    <p class="text-xl md:text-2xl text-gray-200 max-w-2xl">{{ slide.description }}</p>
+            <img src="{{ slide.image }}" alt="{{ slide.title }}" class="w-full h-full object-contain rounded-2xl border border-white/10 shadow-2xl">
+        </div>
+        {% endfor %}
+        <div class="absolute bottom-3 left-0 right-0 z-30 flex justify-center space-x-2">
+            {% for slide in slides %}
+            <button onclick="goToSlide({{ forloop.counter0 }})" class="carousel-dot w-2.5 h-2.5 rounded-full {% if forloop.first %}bg-white{% else %}bg-white/30{% endif %} hover:bg-white transition-all duration-300"></button>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Frases destacadas -->
+<section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid md:grid-cols-3 gap-6">
+        {% for slide in slides %}
+        <div class="bg-[#1e293b]/90 border border-gray-700/50 rounded-2xl p-6 shadow-xl hover:shadow-akela-500/10 hover:-translate-y-1 transition-all duration-300">
+            <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-akela-500/20 to-purple-500/20 flex items-center justify-center flex-shrink-0 border border-akela-500/20">
+                    <svg class="w-6 h-6 text-akela-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        {% if forloop.first %}
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        {% elif forloop.counter == 2 %}
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                        {% else %}
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        {% endif %}
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">{{ slide.title }}</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">{{ slide.description }}</p>
                 </div>
             </div>
         </div>
-        {% endfor %}
-    </div>
-    <div class="absolute bottom-4 left-0 right-0 z-30 flex justify-center space-x-2">
-        {% for slide in slides %}
-        <button onclick="goToSlide({{ forloop.counter0 }})" class="carousel-dot w-3 h-3 rounded-full {% if forloop.first %}bg-white{% else %}bg-white/50{% endif %} hover:bg-white transition"></button>
         {% endfor %}
     </div>
 </section>
 
 <!-- Planes de Precios -->
 <section class="max-w-7xl mx-auto px-4 py-16">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Nuestros Planes</h2>
-    <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Elige el plan que mejor se adapte a tus objetivos y comienza tu transformación hoy.</p>
+    <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-4 bg-gradient-to-r from-akela-400 to-white bg-clip-text text-transparent">Planes para tu Éxito</h2>
+    <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto text-lg">Selecciona el plan ideal para ti y empieza a verte y sentirte mejor que nunca.</p>
     <div class="grid md:grid-cols-3 gap-8">
         {% for plan in planes %}
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden {% if plan.destacado %}ring-2 ring-akela-500 scale-105{% endif %}">
+        <div class="bg-[#1e293b] rounded-2xl shadow-lg hover:shadow-akela-500/10 hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2 border border-gray-700/50 {% if plan.destacado %}ring-2 ring-akela-500 md:scale-105 md:hover:scale-110{% endif %}">
             {% if plan.destacado %}
-            <div class="bg-akela-500 text-white text-center py-2 text-sm font-medium">MÁS POPULAR</div>
+            <div class="bg-gradient-to-r from-akela-500 to-akela-700 text-white text-center py-2 text-sm font-medium tracking-wider">MÁS POPULAR</div>
             {% endif %}
             <div class="p-8">
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ plan.nombre }}</h3>
-                <p class="text-gray-600 mb-6">{{ plan.descripcion }}</p>
-                <p class="text-4xl font-bold text-akela-600 mb-6">${{ plan.precio }}<span class="text-lg text-gray-500 font-normal">/{{ plan.periodo }}</span></p>
+                <h3 class="text-2xl font-bold text-white mb-2">{{ plan.nombre }}</h3>
+                <p class="text-gray-400 mb-6">{{ plan.descripcion }}</p>
+                <p class="text-4xl font-bold text-akela-400 mb-6">${{ plan.precio }}<span class="text-lg text-gray-500 font-normal">/{{ plan.periodo }}</span></p>
                 <ul class="space-y-3 mb-8">
                     {% for beneficio in plan.beneficios %}
                     <li class="flex items-start space-x-2">
-                        <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span>{{ beneficio }}</span>
+                        <svg class="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-gray-300">{{ beneficio }}</span>
                     </li>
                     {% endfor %}
                 </ul>
-                <a href="{% url 'register' %}" class="block w-full text-center py-3 rounded-xl font-medium transition {% if plan.destacado %}bg-akela-500 hover:bg-akela-600 text-white{% else %}bg-gray-100 hover:bg-gray-200 text-gray-900{% endif %}">Comenzar ahora</a>
+                <a href="{% url 'register' %}" class="block w-full text-center py-3 rounded-xl font-medium transition-all duration-300 {% if plan.destacado %}bg-gradient-to-r from-akela-500 to-akela-700 hover:from-akela-600 hover:to-akela-800 text-white shadow-lg hover:shadow-xl{% else %}bg-gray-700 hover:bg-gray-600 text-white{% endif %}">Comenzar ahora</a>
             </div>
         </div>
         {% endfor %}
@@ -55,18 +75,18 @@
 </section>
 
 <!-- Entrenamientos -->
-<section class="bg-white py-16">
+<section class="py-16 border-t border-gray-800">
     <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Nuestros Entrenamientos</h2>
-        <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Descubre las disciplinas que tenemos para ti.</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-4 bg-gradient-to-r from-akela-400 to-white bg-clip-text text-transparent">Nuestros Entrenamientos</h2>
+        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto text-lg">Descubre las disciplinas que tenemos para ti.</p>
         <div class="grid md:grid-cols-3 gap-8">
             {% for disciplina in disciplinas %}
-            <div class="group relative rounded-2xl overflow-hidden shadow-lg">
-                <img src="{{ disciplina.image }}" alt="{{ disciplina.nombre }}" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
-                    <div>
+            <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 border border-gray-700/50">
+                <img src="{{ disciplina.image }}" alt="{{ disciplina.nombre }}" class="w-full h-64 object-cover group-hover:scale-110 transition duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
+                    <div class="transform group-hover:translate-y-0 translate-y-2 transition-transform duration-300">
                         <h3 class="text-white text-xl font-bold">{{ disciplina.nombre }}</h3>
-                        <p class="text-gray-200 text-sm">{{ disciplina.descripcion }}</p>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">{{ disciplina.descripcion }}</p>
                     </div>
                 </div>
             </div>
@@ -87,11 +107,11 @@
         slides[currentSlide].classList.remove('opacity-100');
         slides[currentSlide].classList.add('opacity-0');
         dots[currentSlide].classList.remove('bg-white');
-        dots[currentSlide].classList.add('bg-white/50');
+        dots[currentSlide].classList.add('bg-white/30');
         currentSlide = index;
         slides[currentSlide].classList.remove('opacity-0');
         slides[currentSlide].classList.add('opacity-100');
-        dots[currentSlide].classList.remove('bg-white/50');
+        dots[currentSlide].classList.remove('bg-white/30');
         dots[currentSlide].classList.add('bg-white');
     }
 

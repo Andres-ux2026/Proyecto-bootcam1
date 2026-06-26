@@ -135,7 +135,7 @@ class TestVistasPublicas(TestCase):
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'AkelaGym')
-        self.assertContains(response, 'Nuestros Planes')
+        self.assertContains(response, 'Planes para tu Éxito')
         self.assertContains(response, 'Nuestros Entrenamientos')
 
     def test_login_page(self):
