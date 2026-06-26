@@ -1,0 +1,102 @@
+{% extends 'core/base.html' %}
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<!-- Hero / Carrusel -->
+<section class="relative bg-gray-900 text-white overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-akela-900/80 to-black/60 z-10"></div>
+    <div id="carousel" class="relative h-[500px] md:h-[600px]">
+        {% for slide in slides %}
+        <div class="carousel-slide absolute inset-0 transition-opacity duration-700 {% if forloop.first %}opacity-100{% else %}opacity-0{% endif %}">
+            <img src="{{ slide.image }}" alt="{{ slide.title }}" class="w-full h-full object-cover">
+            <div class="absolute inset-0 flex items-center z-20">
+                <div class="max-w-7xl mx-auto px-4 w-full">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">{{ slide.title }}</h1>
+                    <p class="text-xl md:text-2xl text-gray-200 max-w-2xl">{{ slide.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="absolute bottom-4 left-0 right-0 z-30 flex justify-center space-x-2">
+        {% for slide in slides %}
+        <button onclick="goToSlide({{ forloop.counter0 }})" class="carousel-dot w-3 h-3 rounded-full {% if forloop.first %}bg-white{% else %}bg-white/50{% endif %} hover:bg-white transition"></button>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Planes de Precios -->
+<section class="max-w-7xl mx-auto px-4 py-16">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Nuestros Planes</h2>
+    <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Elige el plan que mejor se adapte a tus objetivos y comienza tu transformación hoy.</p>
+    <div class="grid md:grid-cols-3 gap-8">
+        {% for plan in planes %}
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden {% if plan.destacado %}ring-2 ring-akela-500 scale-105{% endif %}">
+            {% if plan.destacado %}
+            <div class="bg-akela-500 text-white text-center py-2 text-sm font-medium">MÁS POPULAR</div>
+            {% endif %}
+            <div class="p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ plan.nombre }}</h3>
+                <p class="text-gray-600 mb-6">{{ plan.descripcion }}</p>
+                <p class="text-4xl font-bold text-akela-600 mb-6">${{ plan.precio }}<span class="text-lg text-gray-500 font-normal">/{{ plan.periodo }}</span></p>
+                <ul class="space-y-3 mb-8">
+                    {% for beneficio in plan.beneficios %}
+                    <li class="flex items-start space-x-2">
+                        <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span>{{ beneficio }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'register' %}" class="block w-full text-center py-3 rounded-xl font-medium transition {% if plan.destacado %}bg-akela-500 hover:bg-akela-600 text-white{% else %}bg-gray-100 hover:bg-gray-200 text-gray-900{% endif %}">Comenzar ahora</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Entrenamientos -->
+<section class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Nuestros Entrenamientos</h2>
+        <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Descubre las disciplinas que tenemos para ti.</p>
+        <div class="grid md:grid-cols-3 gap-8">
+            {% for disciplina in disciplinas %}
+            <div class="group relative rounded-2xl overflow-hidden shadow-lg">
+                <img src="{{ disciplina.image }}" alt="{{ disciplina.nombre }}" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                    <div>
+                        <h3 class="text-white text-xl font-bold">{{ disciplina.nombre }}</h3>
+                        <p class="text-gray-200 text-sm">{{ disciplina.descripcion }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+
+    function goToSlide(index) {
+        slides[currentSlide].classList.remove('opacity-100');
+        slides[currentSlide].classList.add('opacity-0');
+        dots[currentSlide].classList.remove('bg-white');
+        dots[currentSlide].classList.add('bg-white/50');
+        currentSlide = index;
+        slides[currentSlide].classList.remove('opacity-0');
+        slides[currentSlide].classList.add('opacity-100');
+        dots[currentSlide].classList.remove('bg-white/50');
+        dots[currentSlide].classList.add('bg-white');
+    }
+
+    setInterval(() => {
+        goToSlide((currentSlide + 1) % slides.length);
+    }, 5000);
+</script>
+{% endblock %}

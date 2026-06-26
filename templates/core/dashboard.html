@@ -1,0 +1,136 @@
+{% extends 'core/base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8">Bienvenido, {{ user.username }}</h1>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Perfil -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <h2 class="text-xl font-bold mb-4">Mi Perfil</h2>
+                <div class="space-y-3">
+                    <p><span class="text-gray-500">Usuario:</span> <span class="font-medium">{{ user.username }}</span></p>
+                    <p><span class="text-gray-500">Email:</span> <span class="font-medium">{{ user.email }}</span></p>
+                    <p><span class="text-gray-500">Teléfono:</span> <span class="font-medium">{{ user.perfil.telefono|default:"—" }}</span></p>
+                    <p><span class="text-gray-500">Fecha de nacimiento:</span> <span class="font-medium">{{ user.perfil.fecha_nacimiento|default:"—"|date:"d/m/Y" }}</span></p>
+                    <p><span class="text-gray-500">Miembro desde:</span> <span class="font-medium">{{ user.date_joined|date:"d/m/Y" }}</span></p>
+                </div>
+            </div>
+
+            <!-- Rutinas Asignadas -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 mt-6">
+                <h2 class="text-xl font-bold mb-4">Mis Rutinas</h2>
+                {% if rutinas %}
+                <div class="space-y-4">
+                    {% for rutina in rutinas %}
+                    <div class="border border-gray-200 rounded-xl p-4">
+                        <h3 class="font-bold text-lg">{{ rutina.nombre }}</h3>
+                        <span class="inline-block bg-akela-100 text-akela-800 text-xs px-2 py-1 rounded-full">{{ rutina.nivel }}</span>
+                        <p class="text-gray-600 text-sm mt-2">{{ rutina.descripcion|truncatewords:30 }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-gray-500">No tienes rutinas asignadas aún.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Avance Físico -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Historial de Avance</h2>
+                    <a href="{% url 'crear_avance' %}" class="bg-akela-600 hover:bg-akela-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition">Registrar Avance</a>
+                </div>
+
+                {% if avances %}
+                <!-- Chart.js -->
+                <div class="mb-8">
+                    <canvas id="avanceChart" height="250"></canvas>
+                </div>
+
+                <!-- Tabla -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200">
+                                <th class="text-left py-3 px-2 font-medium text-gray-500">Fecha</th>
+                                <th class="text-left py-3 px-2 font-medium text-gray-500">Peso (kg)</th>
+                                <th class="text-left py-3 px-2 font-medium text-gray-500">% Grasa</th>
+                                <th class="text-left py-3 px-2 font-medium text-gray-500">Notas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for avance in avances %}
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-2">{{ avance.fecha|date:"d/m/Y" }}</td>
+                                <td class="py-3 px-2">{{ avance.peso }}</td>
+                                <td class="py-3 px-2">{{ avance.porcentaje_grasa }}%</td>
+                                <td class="py-3 px-2 text-gray-500">{{ avance.notas|default:"—" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-12 text-gray-500">
+                    <p class="text-lg">Aún no has registrado ningún avance.</p>
+                    <p class="mt-2">¡Registra tu primer avance para ver tu progreso!</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% if avances %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('avanceChart').getContext('2d');
+    const avances = [
+        {% for a in avances reversed %}
+        { fecha: '{{ a.fecha|date:"d/m/Y" }}', peso: {{ a.peso }}, grasa: {{ a.porcentaje_grasa }} },
+        {% endfor %}
+    ];
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: avances.map(a => a.fecha),
+            datasets: [{
+                label: 'Peso (kg)',
+                data: avances.map(a => a.peso),
+                borderColor: '#0c8ee6',
+                backgroundColor: 'rgba(12, 142, 230, 0.1)',
+                tension: 0.3,
+                fill: true
+            }, {
+                label: '% Grasa',
+                data: avances.map(a => a.grasa),
+                borderColor: '#e63e3e',
+                backgroundColor: 'rgba(230, 62, 62, 0.1)',
+                tension: 0.3,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+</script>
+{% endif %}
+{% endblock %}

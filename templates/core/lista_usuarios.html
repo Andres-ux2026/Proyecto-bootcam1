@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% block title %}Admin - Usuarios{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold">Usuarios Registrados</h1>
+        <a href="{% url 'lista_rutinas' %}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-xl text-sm font-medium transition">Rutinas</a>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="bg-gray-50 border-b-2 border-gray-200">
+                    <th class="text-left py-4 px-4 font-medium text-gray-500">Usuario</th>
+                    <th class="text-left py-4 px-4 font-medium text-gray-500">Email</th>
+                    <th class="text-left py-4 px-4 font-medium text-gray-500">Teléfono</th>
+                    <th class="text-left py-4 px-4 font-medium text-gray-500">Fecha de registro</th>
+                    <th class="text-left py-4 px-4 font-medium text-gray-500">Avances</th>
+                    <th class="text-right py-4 px-4 font-medium text-gray-500">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in usuarios %}
+                <tr class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="py-4 px-4 font-medium">{{ u.username }}</td>
+                    <td class="py-4 px-4">{{ u.email }}</td>
+                    <td class="py-4 px-4">{{ u.perfil.telefono|default:"—" }}</td>
+                    <td class="py-4 px-4 text-gray-500">{{ u.date_joined|date:"d/m/Y" }}</td>
+                    <td class="py-4 px-4">{{ u.avances.count }}</td>
+                    <td class="py-4 px-4 text-right">
+                        <a href="{% url 'detalle_usuario' u.pk %}" class="text-akela-600 hover:text-akela-800 font-medium">Ver detalles</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="py-12 text-center text-gray-500">No hay usuarios registrados.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

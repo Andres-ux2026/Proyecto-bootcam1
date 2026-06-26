@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+{% block title %}Usuario: {{ usuario.username }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <a href="{% url 'lista_usuarios' %}" class="text-akela-600 hover:text-akela-700 font-medium mb-6 inline-block">&larr; Volver a usuarios</a>
+    
+    <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+        <h1 class="text-2xl font-bold mb-4">{{ usuario.username }}</h1>
+        <div class="grid md:grid-cols-2 gap-4">
+            <p><span class="text-gray-500">Email:</span> {{ usuario.email }}</p>
+            <p><span class="text-gray-500">Teléfono:</span> {{ usuario.perfil.telefono|default:"—" }}</p>
+            <p><span class="text-gray-500">Miembro desde:</span> {{ usuario.date_joined|date:"d/m/Y" }}</p>
+            <p><span class="text-gray-500">Total avances:</span> {{ avances.count }}</p>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-lg p-6">
+        <h2 class="text-xl font-bold mb-4">Avances Físicos</h2>
+        {% if avances %}
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b-2 border-gray-200">
+                        <th class="text-left py-3 px-2 font-medium text-gray-500">Fecha</th>
+                        <th class="text-left py-3 px-2 font-medium text-gray-500">Peso (kg)</th>
+                        <th class="text-left py-3 px-2 font-medium text-gray-500">% Grasa</th>
+                        <th class="text-left py-3 px-2 font-medium text-gray-500">Notas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for avance in avances %}
+                    <tr class="border-b border-gray-100">
+                        <td class="py-3 px-2">{{ avance.fecha|date:"d/m/Y" }}</td>
+                        <td class="py-3 px-2">{{ avance.peso }}</td>
+                        <td class="py-3 px-2">{{ avance.porcentaje_grasa }}%</td>
+                        <td class="py-3 px-2 text-gray-500">{{ avance.notas|default:"—" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-gray-500 text-center py-8">Este usuario no ha registrado avances.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

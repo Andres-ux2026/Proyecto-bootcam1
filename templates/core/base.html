@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AkelaGym - {% block title %}Tu Gimnasio{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        akela: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#b9dffc',
+                            300: '#7cc5fa',
+                            400: '#36a9f5',
+                            500: '#0c8ee6',
+                            600: '#0070c4',
+                            700: '#01599f',
+                            800: '#064c83',
+                            900: '#0b406d',
+                            950: '#072849',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>">
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+    <nav class="bg-akela-700 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="{% url 'home' %}" class="flex items-center space-x-2">
+                        <span class="text-2xl">💪</span>
+                        <span class="text-white text-xl font-bold tracking-tight">AkelaGym</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="text-akela-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Dashboard</a>
+                        {% if user.is_staff %}
+                            <a href="{% url 'lista_rutinas' %}" class="text-akela-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Admin Gym</a>
+                        {% endif %}
+                        <span class="text-akela-200 text-sm">Hola, {{ user.username }}</span>
+                        <a href="{% url 'logout' %}" class="bg-akela-500 hover:bg-akela-600 text-white px-4 py-2 rounded-md text-sm font-medium transition">Cerrar Sesión</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="text-akela-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Iniciar Sesión</a>
+                        <a href="{% url 'register' %}" class="bg-akela-500 hover:bg-akela-600 text-white px-4 py-2 rounded-md text-sm font-medium transition">Registrarse</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% if messages %}
+    <div class="max-w-7xl mx-auto px-4 mt-4">
+        {% for message in messages %}
+        <div class="{% if message.tags == 'error' %}bg-red-100 border-red-400 text-red-700{% else %}bg-green-100 border-green-400 text-green-700{% endif %} border px-4 py-3 rounded-lg mb-2">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 mt-16">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-center">
+            <p>&copy; {% now "Y" %} AkelaGym. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
